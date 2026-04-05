@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Countdown</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: purple;
+  color: white;
+  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#announcement {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  color: black;
+  padding: 8px;
+  font-size: 12px;
+}
+
+#timer {
+  font-size: 2rem;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="announcement"></div>
+
+<a href="/" style="position:absolute; top:20px; left:20px; color:white;">← BACK</a>
+
+<div>
+  <h1>GAME COUNTDOWN</h1>
+  <div id="timer">Loading...</div>
+</div>
+
+<script>
+fetch('announcement.json')
+  .then(res => res.json())
+  .then(data => {
+    if (data.enabled) {
+      document.getElementById('announcement').innerText = data.text;
+    }
+  })
+  .catch(() => {});
+
+const targetDate = new Date("2026-12-30T18:00:00-05:00").getTime();
+
+const interval = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if (distance < 0) {
+    clearInterval(interval);
+    document.getElementById("timer").innerHTML = `
+      <a href="https://www.roblox.com/games/105131718817439" style="
+        padding:15px 30px;
+        background:white;
+        color:black;
+        border-radius:999px;
+        text-decoration:none;
+        font-weight:bold;
+      ">
+        JOIN NOW
+      </a>
+    `;
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("timer").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+}, 1000);
+</script>
+
+</body>
+</html>
