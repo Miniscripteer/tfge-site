@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FILLER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* BODY + BACKGROUND */
+body {
+  margin: 0;
+  height: 100vh;
+  display: block;
+  background: url('https://imgur.com/a/d-PJAdyOJ') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* DARK OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+/* WRAPPER FOR CLICKABLE CONTENT */
+.content {
+  position: relative;
+  z-index: 2;  /* above overlay */
+}
+
+/* ANNOUNCEMENT */
+#announcement {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  color: black;
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
+  z-index: 999;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  left: 0;
+  top: 40px;
+  height: 100%;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav a {
+  writing-mode: vertical-rl;
+  text-decoration: none;
+  color: white;
+  opacity: 0.6;
+  font-size: 12px;
+}
+
+.nav a:hover {
+  opacity: 1;
+}
+
+/* MAIN */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 4rem;
+  letter-spacing: 0.2em;
+}
+
+.button {
+  margin-top: 30px;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 999px;
+  background: white;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* PLAYER RIGHT (optional) */
+.player {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
+iframe {
+  border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="content">
+  <div id="announcement"></div>
+
+  <div class="nav">
+    <a href="/">HOME</a>
+    <a href="/credits.html">CREDITS</a>
+    <a href="/countdown.html">COUNTDOWN</a>
+    <a href="/affiliates.html">AFFILIATES</a>
+  </div>
+
+  <div class="main">
+    <div>
+      <h1>FILLER</h1>
+      <p style="opacity:0.6;">The Official Anncestor of Project Wolf.</p>
+
+      <a class="button" href="https://distrokid.com/hyperfollow/limosstuff/filler?ref=release" target="_blank">
+        JOIN THE DISCORD
+      </a>
+
+      <p style="margin-top:20px; font-size:12px; opacity:0.4;">
+        THE FLOG GNAW EXPERIENCE
+      </p>
+    </div>
+  </div>
+
+
+<script>
+fetch('announcement.json')
+  .then(res => res.json())
+  .then(data => {
+    if (data.enabled) {
+      document.getElementById('announcement').innerText = data.text;
+    } else {
+      document.getElementById('announcement').style.display = "none";
+    }
+  })
+  .catch(() => {
+    document.getElementById('announcement').style.display = "none";
+  });
+</script>
+
+</body>
+</html>
